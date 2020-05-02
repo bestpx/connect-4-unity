@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+connect-4/.idea/
+**/Library/
+connect-4/obj/
+connect-4/Temp/
+connect-4/Logs/
