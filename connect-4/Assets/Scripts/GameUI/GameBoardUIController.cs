@@ -10,6 +10,7 @@ public class GameBoardUIController : MonoBehaviour
     [SerializeField] private GameObject _piece2;
     [SerializeField] private GameObject _inputBlocker;
     [SerializeField] private TextMeshProUGUI _gameStateText;
+    [SerializeField] private TextMeshProUGUI _currentTurnText;
     
     private Game _game;
     private Player _player1;
@@ -24,6 +25,7 @@ public class GameBoardUIController : MonoBehaviour
         _currentPlayer = _player1;
         _inputBlocker.SetActive(false);
         _gameStateText.text = "";
+        _currentTurnText.text = "Player1's turn";
     }
 
     public void OnColumnClicked(ColumnView column, int columnId)
@@ -51,6 +53,9 @@ public class GameBoardUIController : MonoBehaviour
         {
             _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
         }
+        
+        // update UI post play turn
+        _currentTurnText.text = $"Player{_currentPlayer.Id}'s turn";
     }
 
     public void RestartGame()
