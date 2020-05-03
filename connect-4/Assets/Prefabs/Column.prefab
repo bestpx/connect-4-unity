@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1725101723778032624}
   - component: {fileID: 2631051551864981712}
   m_Layer: 5
-  m_Name: column
+  m_Name: Column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.48794055, g: 0.5338839, b: 0.8018868, a: 1}
+  m_Color: {r: 0.4244144, g: 0.38470095, b: 0.8584906, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -113,3 +113,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7742e239a4bf64443bcd38699d056339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ColumnIndex: 0
+  _gameBoardUiController: {fileID: 0}
