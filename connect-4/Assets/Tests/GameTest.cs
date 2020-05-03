@@ -12,7 +12,22 @@ namespace Tests
         [Test]
         public void GameTestSimplePasses()
         {
-            // Use the Assert class to test conditions
+            var game = new Game(7, 6);
+            var player1 = new Player(1);
+            var player2 = new Player(2);
+            Assert.AreEqual(game.CheckState(), 0);
+            Assert.IsTrue(game.CanPlayAtColumn(0), "should be able to play at column 0");
+            Assert.IsTrue(game.CanPlayAtColumn(1), "should be able to play at column 1");
+            Assert.IsTrue(game.CanPlayAtColumn(2), "should be able to play");
+            Assert.IsTrue(game.CanPlayAtColumn(3), "should be able to play");
+            Assert.IsTrue(game.CanPlayAtColumn(4), "should be able to play");
+            Assert.IsTrue(game.CanPlayAtColumn(5), "should be able to play");
+            Assert.IsTrue(game.CanPlayAtColumn(6), "should be able to play");
+            game.PlayAt(player1.Id, 0);
+            game.PlayAt(player1.Id, 1);
+            game.PlayAt(player1.Id, 2);
+            game.PlayAt(player1.Id, 3);
+            Assert.AreEqual(game.CheckState(), player1.Id);
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
