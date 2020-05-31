@@ -1,0 +1,16 @@
+{
+    "name": "Connect4.mlagents",
+    "references": [
+        "GUID:85e0054f8e64b47309646d35f8851f81",
+        "GUID:d2f4cd5e9223a444a9bdb2334947814e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

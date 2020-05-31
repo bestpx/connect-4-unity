@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GameCore;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,18 +12,13 @@ public class GameBoardUIController : MonoBehaviour
     [SerializeField] private GameObject _inputBlocker;
     [SerializeField] private TextMeshProUGUI _gameStateText;
     [SerializeField] private TextMeshProUGUI _currentTurnText;
-    
-    private Game _game;
-    private Player _player1;
-    private Player _player2;
-    private Player _currentPlayer;
 
+    private GameController _gameController;
+    
     void Awake()
     {
-        _game = new Game(7,6);
-        _player1 = new Player(1);
-        _player2 = new Player(2);
-        _currentPlayer = _player1;
+        _gameController = new GameController();
+        _gameController.Initialize();
         _inputBlocker.SetActive(false);
         _gameStateText.text = "";
         _currentTurnText.text = "Player1's turn";
@@ -30,32 +26,34 @@ public class GameBoardUIController : MonoBehaviour
 
     public void OnColumnClicked(ColumnView column, int columnId)
     {
-        if (!_game.CanPlayAtColumn(columnId))
+        var currentPlayer = _gameController.CurrentPlayer;
+        if (_gameController.TryPlayAtColumn(columnId) == -1)
         {
             return;
         }
-        _game.PlayAt(_currentPlayer.Id, columnId);
-        
+        // current player changed after playing turn
+        var nextPlayer = _gameController.CurrentPlayer;
         // update UI
-        var prefab = _currentPlayer == _player1 ? _piece1 : _piece2;
+        var prefab = _gameController.CurrentPlayer.Id == 1 ? _piece1 : _piece2;
         var go = Instantiate(prefab);
         column.AddPiece(go);
-        
         // check game state
-        var state = _game.CheckState();
-        if (state != 0)
+        var state = _gameController.GetGameState();
+        if (state == -1)
         {
-            Debug.Log($"Player {_currentPlayer.Id} wins");
+            Debug.Log("Ties");
             _inputBlocker.SetActive(true);
-            _gameStateText.text = $"Player{_currentPlayer.Id} Won!";
+            _gameStateText.text = "Tie!";
         }
-        else
+        else if (state != 0)
         {
-            _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
+            Debug.Log($"Player {state} wins");
+            _inputBlocker.SetActive(true);
+            _gameStateText.text = $"Player{state} Won!";
         }
         
         // update UI post play turn
-        _currentTurnText.text = $"Player{_currentPlayer.Id}'s turn";
+        _currentTurnText.text = $"Player{nextPlayer.Id}'s turn";
     }
 
     public void RestartGame()

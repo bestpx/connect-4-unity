@@ -41,6 +41,11 @@ public class Game
         _gameboard[column][NextAtColumn(column)] = player;
     }
 
+    public int GetValueAt(int x, int y)
+    {
+        return _gameboard[x][y];
+    }
+
     /// <summary>
     /// Find the next available spot at column
     /// </summary>
@@ -78,8 +83,24 @@ public class Game
     /// </summary>
     /// <returns>0 if no player wins</returns>
     /// <returns>playerId if playerId wins</returns>
+    /// <returns>-1 if ties</returns>
     public int CheckState()
     {
+        bool boardFull = true;
+        for (int i = 0; i < _width; i++)
+        {
+            if (CanPlayAtColumn(i))
+            {
+                boardFull = false;
+                break;
+            }
+        }
+
+        if (boardFull)
+        {
+            return -1;
+        }
+        
         // check vertical
         for (int i = 0; i < _width; i++)
         {
